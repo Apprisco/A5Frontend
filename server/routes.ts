@@ -69,10 +69,17 @@ class Routes {
     //display all posts of friends if no author is specified, otherwise make sure only friends can see posts
     if (author) {
       const authorId = (await User.getUserByUsername(author))._id;
-      if(authorId!==user) await Friend.isFriends(user,authorId);
+      if(!authorId.equals(user)) await Friend.isFriends(user,authorId);
       posts = await Post.getByAuthor(authorId);
     }
-    else posts = await Post.getPosts({author:{$in:friends}});
+    else
+    {
+      posts = await Post.getPosts({author:{$in:friends}});
+      const user_posts=await Post.getPosts({author:user});
+      user_posts.forEach(post => {
+        posts.push(post);
+      })
+    }
     return Responses.posts(posts);
   }
 
