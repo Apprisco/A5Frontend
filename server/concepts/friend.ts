@@ -22,7 +22,10 @@ export default class FriendConcept {
       $or: [{ from: user }, { to: user }],
     });
   }
-
+  async isFriends(a: ObjectId, b: ObjectId) {
+    const friendship = await this.friends.readOne({$or: [{from:a,to:b},{from:b,to:a}]});
+    if(friendship===null) throw new FriendNotFoundError(a,b);
+  }
   async sendRequest(from: ObjectId, to: ObjectId) {
     await this.canSendRequest(from, to);
     await this.requests.createOne({ from, to, status: "pending" });
