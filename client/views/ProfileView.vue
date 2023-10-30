@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import PostListComponent from "@/components/Post/PostListComponent.vue";
-
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
-const { currentUsername } = storeToRefs(useUserStore());
+import { useSiteStore } from "@/stores/site";
 import { fetchy } from "@/utils/fetchy";
+import Profile from "@/components/Modal/Profile.vue"
+import Button from "@/components/Button/Button.vue";
+import router from "@/router";
+import { watchEffect } from "vue";
+
+const { currentUsername } = storeToRefs(useUserStore());
+const siteStore=useSiteStore();
 const fetchProfile = async () => {
   let profile;
   try {
@@ -14,70 +19,62 @@ const fetchProfile = async () => {
   }
   return profile;
 };
+const routeTo = (name: string) => {
+  router.push({ name });
+};
 let profile=await fetchProfile();
-const name=profile.name;
+const editProfile=async ()=>{
+  siteStore.isEditingProfile(true);
+};
 </script>
 
 <template>
   <main>
-    <div class="container">
-      <Suspense>
-        <h1 class="title bold huge-text">{{name}}</h1>
-      </Suspense>
-      <div class="row">
-        
-      </div>
-
-      <div>
-        <!-- <PostListComponent :owner="currentUsername" /> -->
-        <!-- <UserReviewsComponent :own="true" />
-        <JobListComponent :own="true" /> -->
-      </div>
+    <h1>{{profile.name}}</h1>
+    <div class="row">
+      <h2>Introduction: {{profile.content}}</h2>
     </div>
+    <div class="row">
+      <h2>Caption Features: {{profile.captions}}</h2>
+    </div>
+    <div class="row">
+      <h2>Speech Features: {{profile.speech}}</h2>
+    </div>
+    <div class="row">
+      <Button :text="'Edit'" :width="'180px'" :onClick="editProfile" :isDisabled="false" :variant="'important'" />
+    </div>
+    <div v-if="siteStore.editProfile">
+      <Profile />
+    </div>
+
   </main>
 </template>
 
 <style scoped>
 
-.container {
-  width: 100%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-left: var(--page-side-padding);
-  padding-right: var(--page-side-padding);
-  box-sizing: border-box;
-  padding-top: 85px;
-  color: black;
+h1,
+h2 {
+  text-align: center;
 }
-.blurb {
-  line-height: 125%;
+
+h1 {
+  font-size: 2em;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 60em;
+}
+
+.button {
+  padding: 1em;
+  background-color: lightgray;
+  border-radius: 20px;
+  font-size: 1em;
 }
 main {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-.title {
-  margin: 0px;
-}
-.left-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 60%;
-  max-height: 100%;
-  padding: 0px 50px 50px 50px;
-}
-.right-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-width: 25%;
-}
-.front-image {
-  width: 800px;
+  margin-top:50px;
 }
 </style>
