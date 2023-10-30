@@ -28,7 +28,7 @@ export default class CommentConcept {
   async isOwner(user:ObjectId,_id: ObjectId) {
     const comment = await this.comments.readOne({_id});
     if(!comment) throw new NotFoundError("Comment does not exist!");
-    if (comment.user!==user) {
+    if (!comment.user.equals(user)) {
       throw new CommentNotOwnedError(user,_id);
     }
   }

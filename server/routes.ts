@@ -150,35 +150,25 @@ class Routes {
     const fromId = (await User.getUserByUsername(from))._id;
     return await Friend.rejectRequest(fromId, user);
   }
-  @Router.get("/comments")
-  async getCommentsByUser(session: WebSessionDoc) {
-    const user = WebSession.getUser(session);
-    return await Comment.getCommentsByUser(user);
-  }
-
-  @Router.get("/posts/:_target/comments")
-  async getCommentsByPost(session: WebSessionDoc, _target: ObjectId) {
-    const user = WebSession.getUser(session);
-    await isFriendWithPostOwner(user,_target);
+  @Router.get("/comments/:_target")
+  async getCommentsByPost(_target: ObjectId) {
     return await Comment.getCommentsByTarget(_target);
   }
-  @Router.post("/posts/:_target/comments")
+  @Router.post("/comments")
   async createComment(session: WebSessionDoc, _target: ObjectId, text: string) {
     const user = WebSession.getUser(session);
     await isFriendWithPostOwner(user,_target);
     return await Comment.create(user, _target, text);
   }
-  @Router.patch("/posts/:_target/comments/:_id")
-  async updateComment(session: WebSessionDoc, _target: ObjectId, _id: ObjectId, update: Partial<CommentDoc>) {
+  @Router.patch("/comments/:_id")
+  async updateComment(session: WebSessionDoc, _id: ObjectId, update: Partial<CommentDoc>) {
     const user = WebSession.getUser(session);
-    await isFriendWithPostOwner(user,_target);
     await Comment.isOwner(user, _id);
     return await Comment.update(_id, update);
   }
-  @Router.delete("/posts/:_target/comments:_id")
-  async deleteComment(session: WebSessionDoc, _target: ObjectId, _id: ObjectId) {
+  @Router.delete("/comments/:_id")
+  async deleteComment(session: WebSessionDoc, _id: ObjectId) {
     const user = WebSession.getUser(session);
-    await isFriendWithPostOwner(user,_target);
     await Comment.isOwner(user, _id);
     return await Comment.delete(_id);
   }
@@ -208,9 +198,9 @@ class Routes {
   }
 
   @Router.get("/profiles")
-  async getProfile(session: WebSessionDoc, owner?: string)
+  async getProfile(session: WebSessionDoc, owner?: ObjectId)
   {
-    const id = owner ? (await User.getUserByUsername(owner))._id : WebSession.getUser(session);
+    const id = owner ? owner : WebSession.getUser(session);
     return await Profile.getProfile(id);
   }
 
@@ -259,6 +249,10 @@ class Routes {
 async function isFriendWithPostOwner(user: ObjectId, id: ObjectId)
 {
   const post = (await Post.getPosts({ _id: id }))[0];
-  if (post.author!==user) await Friend.isFriends(post.author, user);
+  const owner=post.author;
+  if(!owner.equals(user))
+  {
+    await Friend.isFriends(post.author, user);
+  }
 }
 export default getExpressRouter(new Routes());

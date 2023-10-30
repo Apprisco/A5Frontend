@@ -7,7 +7,6 @@ export const useUserStore = defineStore(
   "user",
   () => {
     const currentUsername = ref("");
-
     const isLoggedIn = computed(() => currentUsername.value !== "");
 
     const resetStore = () => {

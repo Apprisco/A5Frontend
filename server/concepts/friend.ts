@@ -23,6 +23,7 @@ export default class FriendConcept {
     });
   }
   async isFriends(a: ObjectId, b: ObjectId) {
+    if(a.id==b.id) return;
     const friendship = await this.friends.readOne({$or: [{from:a,to:b},{from:b,to:a}]});
     if(friendship===null) throw new FriendNotFoundError(a,b);
   }
