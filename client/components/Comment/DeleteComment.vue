@@ -19,7 +19,7 @@ const deleteComment = async () => {
 const fetchProfile = async () => {
   let profile;
   try {
-    profile= await fetchy(`/api/profiles`, "GET",{owner:props.comment.user});
+    profile= await fetchy(`/api/profiles`, "GET",{query:props.comment.user});
   } catch {
     return;
   }
