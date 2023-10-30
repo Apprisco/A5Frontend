@@ -42,6 +42,7 @@ const executeAction = () => {
   border-width: 0.5px;
   border-radius: 12px;
   border-style: solid;
+  margin:2px;
 }
 .button-container:hover {
   cursor: pointer;
