@@ -5,6 +5,7 @@ import { useSiteStore } from "@/stores/site";
 import { fetchy } from "@/utils/fetchy";
 import Profile from "@/components/Modal/Profile.vue"
 import Button from "@/components/Button/Button.vue";
+import PostListComponent from "@/components/Post/PostListComponent.vue";
 import router from "@/router";
 import { watchEffect } from "vue";
 
@@ -46,6 +47,7 @@ const editProfile=async ()=>{
     <div v-if="siteStore.editProfile">
       <Profile />
     </div>
+    <PostListComponent />
 
   </main>
 </template>

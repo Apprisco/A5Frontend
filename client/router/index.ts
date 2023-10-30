@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import HomeView from "../views/HomeView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
+import PostsView from "../views/PostsView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import SettingView from "../views/SettingView.vue";
 
@@ -23,7 +24,7 @@ const router = createRouter({
     {
       path: "/posts",
       name: "Posts",
-      component: ProfileView,
+      component: PostsView,
     },
     {
       path: "/messages",

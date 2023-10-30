@@ -90,4 +90,14 @@ article {
   margin: 0 auto;
   max-width: 60em;
 }
+.pure-button {
+  border-radius: 8px;
+  margin-bottom: 0.5em;
+  background-color: var(--dark-purple);
+  font-size: 1em;
+  color: white;
+}
+.postsList {
+  padding-bottom: 2em;
+}
 </style>

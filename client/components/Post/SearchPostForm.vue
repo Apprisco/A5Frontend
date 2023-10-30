@@ -22,4 +22,10 @@ form {
   padding: 1em;
   align-items: center;
 }
+button {
+  background-color: var(--dark-purple);
+  border-radius: 6px;
+  font-size: 0.8em;
+  margin: 0.5em;
+}
 </style>

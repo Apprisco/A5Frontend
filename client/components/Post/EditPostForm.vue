@@ -39,14 +39,30 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  border-radius: 1em;
+  padding: 1em;
+}
+.base .pure-button {
+  background-color: var(--purple);
+  border-radius: 6px;
+  margin-bottom: 0.5em;
+  border-color: var(--darker-purple);
+  color: black;
+}
+
+.base .button-error {
+  background-color: var(--purple);
+  color: gray;
 }
 
 textarea {
   font-family: inherit;
   font-size: inherit;
   height: 6em;
-  border-radius: 4px;
+  border-radius: 6px;
   resize: none;
+  border: none;
+  padding: 0.5em;
 }
 
 p {

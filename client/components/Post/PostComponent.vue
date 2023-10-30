@@ -34,6 +34,23 @@ const deletePost = async () => {
 </template>
 
 <style scoped>
+.post {
+  font-weight:thin;
+}
+.content {
+  font-size: 1.5em;
+  padding: 0.5em;
+}
+.base .pure-button {
+  background-color: white;
+  border-radius: 6px;
+  margin-bottom: 0.5em;
+  border-color: gray;
+}
+
+.base .button-error {
+  background-color: gray;
+}
 p {
   margin: 0em;
 }

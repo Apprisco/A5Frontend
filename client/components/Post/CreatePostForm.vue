@@ -43,9 +43,17 @@ form {
 textarea {
   font-family: inherit;
   font-size: inherit;
-  height: 6em;
+  height: 7em;
   padding: 0.5em;
-  border-radius: 4px;
+  border-radius: 10px;
+  border: none;
   resize: none;
+  background-color: white;
+}
+.pure-button {
+  background-color: var(--darker-purple);
+  border-radius: 8px;
+  width: auto;
+  font-size: 0.9em;
 }
 </style>

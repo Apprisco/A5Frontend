@@ -2,16 +2,21 @@
 
 :root {
   --red: rgb(208, 67, 12);
-  --base-bg: #f1f3f5;
+  --base-bg: 	#ecf5f5;
   --nav-bar-height: 80px;
   --page-side-padding: 50px;
   --side-bar-width: 250px;
   --disabled-color: rgb(145, 145, 145);
-  --light-blue: #32eeff;
-  --teal:rgb(54, 252, 206);
-  --dark-purple: #9032f6;
-  --darker-purple: #8320da;
+  --light-blue: #46a3a3;
+  --teal:#2f6d6d;
+  --dark-purple: #666699;
+  --darker-purple: 	#33334c;
   --cyan: #b49rgb(172, 251, 255)
+}
+
+* {
+  font-family: "Proxima Nova Regular";
+  src: url("./assets/fonts/PNR.ttf");
 }
 
 .error-color {
@@ -87,6 +92,7 @@ h4,
 h5,
 h6 {
   font-family: "Proxima Nova Regular";
+  src: url("./assets/fonts/PNR.ttf");
   font-weight: 400;
   user-select: none;
 }
