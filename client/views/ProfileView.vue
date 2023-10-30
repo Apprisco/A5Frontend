@@ -10,7 +10,6 @@ const fetchProfile = async () => {
   try {
     profile= await fetchy(`/api/profiles`, "GET",{});
   } catch {
-    console.log(e.message);
     return;
   }
   return profile;
