@@ -59,14 +59,6 @@ const user=await fetchUser();
 
 <style scoped>
 
-menu {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  gap: 1em;
-  padding: 0;
-  margin: 0;
-}
 .comment {
   border-radius: 20px;
   background-color: white;
