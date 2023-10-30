@@ -51,7 +51,7 @@ watchEffect(() => {
       <Button v-if="!isLoggedIn" :text="'Log In'" :onClick="login" :width="'100px'" :height="'40px'" :variant="'important'" />
       <Button v-if="isLoggedIn" :text="'Friends'" :onClick="() => routeTo('Friends')" :width="'100px'" :height="'40px'" :variant="'important'" />
       <Button v-if="isLoggedIn" :text="'Posts'" :onClick="() => routeTo('Posts')" :width="'100px'" :height="'40px'" :variant="'important'" />
-      <Button v-if="isLoggedIn" :text="'Messages'" :onClick="() => routeTo('Messages')" :width="'100px'" :height="'40px'" :variant="'important'" />
+      <!-- <Button v-if="isLoggedIn" :text="'Messages'" :onClick="() => routeTo('Messages')" :width="'100px'" :height="'40px'" :variant="'important'" /> -->
       <Button v-if="isLoggedIn" :text="'Profile'" :onClick="() => routeTo('Profile')" :width="'100px'" :height="'40px'" :variant="'important'" />
       <Button v-if="isLoggedIn" :text="'Log Out'" :onClick="logout" :width="'100px'" :height="'40px'" :variant="'important'" />
     </div>

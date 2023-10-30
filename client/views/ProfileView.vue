@@ -31,7 +31,7 @@ const editProfile=async ()=>{
 
 <template>
   <main>
-    <h1>{{profile.name}}</h1>
+    <h1 style="">{{profile.name}}</h1>
     <div class="row">
       <h2>Introduction: {{profile.content}}</h2>
     </div>
@@ -77,6 +77,6 @@ h1 {
   font-size: 1em;
 }
 main {
-  margin-top:50px;
+  margin-top:120px;
 }
 </style>

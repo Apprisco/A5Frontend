@@ -15,26 +15,23 @@ let friends = ref<Array<Record<string, string>>>([]);
 let reqs = ref<Array<Record<string, string>>>([]);
 
 async function getFriendRequests() {
-  let friendReqResults;
+  let rRes;
   try {
-    friendReqResults = await fetchy("/api/friend/requests", "GET");
-  } catch (e) {
-    console.log(e);
+    rRes = await fetchy("/api/friend/requests", "GET");
+  } catch {
     return;
   }
-  reqs.value = friendReqResults;
+  reqs.value = rRes;
 }
 
 async function getFriends() {
-  let friendResults;
+  let friendR;
   try {
-    friendResults = await fetchy("/api/friends", "GET");
-  } catch (e) {
-    console.log(e);
+    friendR = await fetchy("/api/friends", "GET");
+  } catch{
     return;
   }
-
-  friends.value = friendResults;
+  friends.value = friendR;
 }
 
 onBeforeMount(async () => {
