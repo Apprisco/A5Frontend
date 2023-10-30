@@ -6,14 +6,15 @@ export interface ProfileDoc extends BaseDoc {
   user: ObjectId;
   name: string;
   content: string;
-  features: {imageCaptioning:boolean,speech:boolean};
+  captions: boolean,
+  speech: boolean;
 }
 
 export default class ProfileConcept {
   public readonly profiles = new DocCollection<ProfileDoc>("profiles");
-  async create(user: ObjectId)
+  async create(user: ObjectId,name:string,captions:boolean,speech:boolean)
   {
-    return {msg:"Profile created!",profile: this.profiles.createOne({user:user, name:"", content:"",features:{imageCaptioning:true,speech:true}})};
+    return {msg:"Profile created!",profile: this.profiles.createOne({user:user, name:name, content:"",captions:captions,speech:speech})};
   }
 
   async update(user: ObjectId, update:Partial<ProfileDoc>)
@@ -32,7 +33,7 @@ export default class ProfileConcept {
 
   private sanitizeUpdate(update: Partial<ProfileDoc>)
   {
-    const allowedUpdates = ["name", "content","features"];
+    const allowedUpdates = ["name", "content","captions","speech"];
     for(const key in update)
     {
       if(!allowedUpdates.includes(key)) throw new NotAllowedError(`Cannot update '${key}' field!`);

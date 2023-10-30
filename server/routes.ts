@@ -29,10 +29,10 @@ class Routes {
   }
 
   @Router.post("/users")
-  async createUser(session: WebSessionDoc, username: string, password: string) {
+  async createUser(session: WebSessionDoc, username: string, password: string,name:string,caption:boolean,speech:boolean) {
     WebSession.isLoggedOut(session);
     const user= await User.create(username, password);
-    if(user.user) await Profile.create(user.user._id);
+    if(user.user) await Profile.create(user.user._id,name,caption,speech);
     return user;
   }
 

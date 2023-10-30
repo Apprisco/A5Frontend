@@ -3,6 +3,19 @@
 :root {
   --red: rgb(208, 67, 12);
   --base-bg: #f1f3f5;
+  --nav-bar-height: 80px;
+  --page-side-padding: 50px;
+  --side-bar-width: 250px;
+  --disabled-color: rgb(145, 145, 145);
+  --light-blue: #32eeff;
+  --teal:rgb(54, 252, 206);
+  --dark-purple: #9032f6;
+  --darker-purple: #8320da;
+  --cyan: #b49rgb(172, 251, 255)
+}
+
+.error-color {
+  color: red;
 }
 
 button.btn-small {
@@ -29,4 +42,88 @@ a.button {
   justify-content: center;
   align-items: center;
   gap: 1em;
+}
+
+.textField {
+  width: 250px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: 50px;
+  border-radius: 10px;
+  border-width: 1px;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-left: 15px;
+}
+
+header {
+  height: var(--nav-bar-height);
+  width: 100%;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  min-width: 100vw;
+  background-color: var(--pink);
+}
+
+#app {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Proxima Nova Regular";
+  font-weight: 400;
+  user-select: none;
+}
+
+img {
+  user-select: none;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.huge-text {
+  font-size: 75px;
+}
+
+.large-text {
+  font-size: 50px;
+}
+
+.medium-text {
+  font-size: 30px;
+}
+
+.small-text {
+  font-size: 18px;
+}
+
+.modal-container {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: hsla(0, 0%, 0%, 0.5);
 }

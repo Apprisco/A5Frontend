@@ -1,60 +1,68 @@
 <script setup lang="ts">
 import { useToastStore } from "@/stores/toast";
 import { useUserStore } from "@/stores/user";
+import { useSiteStore } from "@/stores/site";
+import router from "@/router";
 import { storeToRefs } from "pinia";
-import { computed, onBeforeMount } from "vue";
+import { computed, onBeforeMount, watchEffect } from "vue";
 import { RouterLink, RouterView, useRoute } from "vue-router";
+import Navbar from "@/components/Bar/Navbar.vue";
 
 const currentRoute = useRoute();
 const currentRouteName = computed(() => currentRoute.name);
 const userStore = useUserStore();
+const siteStore = useSiteStore();
 const { isLoggedIn } = storeToRefs(userStore);
 const { toast } = storeToRefs(useToastStore());
+const { modalVisible } = storeToRefs(siteStore);
 
 // Make sure to update the session before mounting the app in case the user is already logged in
 onBeforeMount(async () => {
+  siteStore.isSigningIn(false);
+  siteStore.isSigningUp(false);
   try {
     await userStore.updateSession();
   } catch {
-    // User is not logged in
   }
+});
+const routeTo = (name: string) => {
+  router.push({ name:name});
+};
+watchEffect(() => {
+  if (!isLoggedIn.value) {
+    routeTo("Home");
+  }
+});
+watchEffect(() => {
+  document.documentElement.style.overflowY = modalVisible.value ? "hidden" : "auto";
 });
 </script>
 
 <template>
   <header>
-    <nav>
-      <div class="title">
-        <img src="@/assets/images/logo.svg" />
-        <RouterLink :to="{ name: 'Home' }">
-          <h1>VisiLink</h1>
-        </RouterLink>
-      </div>
-      <ul>
-        <li>
-          <RouterLink :to="{ name: 'Home' }" :class="{ underline: currentRouteName == 'Home' }"> Home </RouterLink>
-        </li>
-        <li v-if="isLoggedIn">
-          <RouterLink :to="{ name: 'Settings' }" :class="{ underline: currentRouteName == 'Settings' }"> Settings </RouterLink>
-        </li>
-        <li v-else>
-          <RouterLink :to="{ name: 'Login' }" :class="{ underline: currentRouteName == 'Login' }"> Login </RouterLink>
-        </li>
-      </ul>
-    </nav>
+    <Navbar />
     <article v-if="toast !== null" class="toast" :class="toast.style">
       <p>{{ toast.message }}</p>
     </article>
   </header>
-  <RouterView />
+  <div class="page-layout">
+ <Suspense>
+    <RouterView />
+ </Suspense>
+  </div>
 </template>
 
 <style scoped>
 @import "./assets/toast.css";
 
+@font-face {
+  font-family: "Proxima Nova Regular";
+  src: url("./assets/fonts/PNR.ttf");
+}
+
 nav {
   padding: 1em 2em;
-  background-color: lightgray;
+  background-color: var(--teal);
   display: flex;
   align-items: center;
 }

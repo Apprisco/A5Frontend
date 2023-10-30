@@ -3,13 +3,38 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import { useUserStore } from "@/stores/user";
 import HomeView from "../views/HomeView.vue";
-import LoginView from "../views/LoginView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
+import ProfileView from "../views/ProfileView.vue";
 import SettingView from "../views/SettingView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path: "/:catchAll(.*)",
+      name: "not-found",
+      component: NotFoundView,
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: ProfileView,
+    },
+    {
+      path: "/posts",
+      name: "Posts",
+      component: ProfileView,
+    },
+    {
+      path: "/messages",
+      name: "Messages",
+      component: ProfileView,
+    },
+    {
+      path: "/friends",
+      name: "Friends",
+      component: ProfileView,
+    },
     {
       path: "/",
       name: "Home",
@@ -20,23 +45,6 @@ const router = createRouter({
       name: "Settings",
       component: SettingView,
       meta: { requiresAuth: true },
-    },
-    {
-      path: "/login",
-      name: "Login",
-      component: LoginView,
-      meta: { requiresAuth: false },
-      beforeEnter: (to, from) => {
-        const { isLoggedIn } = storeToRefs(useUserStore());
-        if (isLoggedIn.value) {
-          return { name: "Settings" };
-        }
-      },
-    },
-    {
-      path: "/:catchAll(.*)",
-      name: "not-found",
-      component: NotFoundView,
     },
   ],
 });
